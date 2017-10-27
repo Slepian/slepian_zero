@@ -14,7 +14,8 @@ function [lat,dlon,refarea,nmr]=authalic(c11,cmn,dlat,dlon)
 %
 % lat       latitudes describing the grid, column vector [degrees]
 % dlon      longitudes describing the grid, column vector [degrees]
-% refarea   reference area, size of one grid cell at the equator
+% refarea   reference area, size of one grid cell at the equator as
+%           fraction of area of sphere
 % nmr       the number of cells per row in the grid
 %
 % Only needs to calculate DLON at every LAT to have a complete
@@ -50,6 +51,8 @@ function [lat,dlon,refarea,nmr]=authalic(c11,cmn,dlat,dlon)
 %refarea=spharea([0 dlat/2],[dlon -dlat/2])*4*pi*(fralmanac('Radius')/1000)^2;
 %disp(['Reference area is ',num2str(fround(refarea,0)),' square km'])
 
+refarea=spharea([0 dlat/2],[dlon -dlat/2]);
+  
 % Adjust longitudinal intervals
 lat=c11(2):-abs(dlat):cmn(2);
 lat=lat';
